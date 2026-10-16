@@ -111,6 +111,43 @@ h2 { margin: 0; font: 700 27px/1.25 var(--display); letter-spacing: -.035em; }
 .lifecycle-step p { margin: 0 0 12px; color: #94a1a2; font-size: 12px; line-height: 1.45; }
 .defense-label { display: block; margin: 13px 0 4px; color: var(--accent); font: 9px var(--mono); letter-spacing: .1em; }
 .lifecycle-step .defense-copy { margin: 0; color: #c0ccca; }
+.mitre-intro { max-width: 900px; margin: -4px 0 23px; color: #a6b2b2; font-size: 14px; }
+.mitre-concepts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mitre-concept {
+  padding: 18px; border: 1px solid var(--line); border-radius: 6px;
+  background: linear-gradient(145deg, #111a1c, #0e1416);
+}
+.mitre-concept h3 { margin: 8px 0 5px; font: 600 16px var(--display); }
+.mitre-concept p { margin: 0; color: #94a1a2; font-size: 12px; }
+.mitre-example {
+  margin-top: 27px; padding: 22px; border: 1px solid var(--line); border-radius: 6px;
+  background: radial-gradient(ellipse at top right, rgba(47,90,63,.1), transparent 47%), #101719;
+}
+.mitre-example-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.mitre-example-heading .eyebrow { margin-bottom: 7px; }
+.mitre-example-heading h3, .exercise-heading h3 { margin: 0; font: 600 19px var(--display); }
+.mitre-observations { display: grid; gap: 0; margin: 21px 0 0; padding: 0; list-style: none; }
+.mitre-observations li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 15px 0; border-top: 1px solid var(--line); }
+.observation-number { color: var(--accent); font: 11px var(--mono); }
+.mitre-observations h4 { margin: 0 0 4px; font: 600 13px var(--display); }
+.mitre-observations p { margin: 0; color: #94a1a2; font-size: 12px; }
+.mitre-observations a, .mitre-source a, .exercise-reference { color: var(--accent); text-underline-offset: 3px; }
+.mitre-caveat { margin: 11px 0 0; padding: 12px; border-left: 2px solid #6a5738; color: #c5b99e; background: rgba(106,87,56,.1); font-size: 11px; }
+.exercise-heading { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin: 32px 0 17px; }
+.exercise-heading .eyebrow { margin-bottom: 6px; }
+.exercise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; }
+.exercise-card { padding: 16px; border: 1px solid var(--line); border-radius: 6px; background: #101719; }
+.exercise-number { margin: 0 0 8px; color: var(--accent); font: 9px var(--mono); letter-spacing: .1em; }
+.exercise-scenario { min-height: 74px; margin: 0 0 14px; color: #a6b2b2; font-size: 12px; }
+.exercise-prompt { min-height: 39px; margin: 0 0 10px; font: 600 13px/1.4 var(--display); }
+.exercise-options { gap: 7px; }
+.exercise-option { align-items: flex-start; gap: 8px; padding: 9px; font-size: 10px; line-height: 1.45; }
+.exercise-option .quiz-option-marker { flex-basis: 21px; height: 21px; }
+.exercise-feedback { margin: 12px 0 0; color: #b9c8c1; font-size: 11px; }
+.exercise-reference { display: inline-block; margin-top: 10px; font-size: 10px; }
+.exercise-actions { display: flex; justify-content: flex-end; margin-top: 13px; }
+.exercise-check { padding: 7px 10px; font-size: 10px; }
+.mitre-source { margin: 18px 0 0; color: var(--muted); font-size: 11px; }
 .library-section { padding-top: 61px; }
 .library-heading { margin-bottom: 21px; }
 .search-box {
@@ -219,6 +256,10 @@ h2 { margin: 0; font: 700 27px/1.25 var(--display); letter-spacing: -.035em; }
   .section-intro { max-width: 100%; }
   .lifecycle { grid-template-columns: repeat(2, 1fr); }
   .lifecycle-step:nth-child(2)::after { display: none; }
+  .mitre-concepts, .exercise-grid { grid-template-columns: 1fr 1fr; }
+  .exercise-heading { align-items: start; flex-direction: column; gap: 9px; }
+  .mitre-example-heading { align-items: flex-start; flex-direction: column; gap: 9px; }
+  .exercise-scenario, .exercise-prompt { min-height: 0; }
   .library-heading { gap: 17px; }
   .search-box { width: 100%; }
   .learning-layout { grid-template-columns: 1fr; }
@@ -240,6 +281,8 @@ h2 { margin: 0; font: 700 27px/1.25 var(--display); letter-spacing: -.035em; }
   .lifecycle { grid-template-columns: 1fr; }
   .lifecycle-step { min-height: auto; }
   .lifecycle-step::after { display: none !important; }
+  .mitre-concepts, .exercise-grid { grid-template-columns: 1fr; }
+  .mitre-example { padding: 16px; }
   .attack-list { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
   .footer { flex-direction: column; }
