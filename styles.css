@@ -119,6 +119,23 @@ h2 { margin: 0; font: 700 27px/1.25 var(--display); letter-spacing: -.035em; }
 }
 .mitre-concept h3 { margin: 8px 0 5px; font: 600 16px var(--display); }
 .mitre-concept p { margin: 0; color: #94a1a2; font-size: 12px; }
+.mitre-howto {
+  display: grid; grid-template-columns: minmax(210px, .7fr) 1.3fr; gap: 24px;
+  margin-top: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 6px;
+  background: #101719;
+}
+.mitre-howto h3, .mitre-matrix-heading h3 { margin: 0; font: 600 17px/1.4 var(--display); }
+.mitre-howto .eyebrow, .mitre-matrix-heading .eyebrow { margin-bottom: 7px; }
+.mitre-howto-steps { display: grid; gap: 9px; margin: 0; padding-left: 20px; color: #94a1a2; font-size: 12px; }
+.mitre-howto-steps strong { color: #dce6e2; }
+.mitre-matrix { margin-top: 24px; }
+.mitre-matrix-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+.matrix-open-link { flex: 0 0 auto; color: var(--accent); font-size: 11px; text-underline-offset: 3px; }
+.mitre-matrix-note { margin: 10px 0; color: var(--muted); font-size: 11px; }
+.mitre-matrix-frame {
+  display: block; width: 100%; height: 720px;
+  border: 1px solid var(--line); border-radius: 6px; background: #fff;
+}
 .mitre-example {
   margin-top: 27px; padding: 22px; border: 1px solid var(--line); border-radius: 6px;
   background: radial-gradient(ellipse at top right, rgba(47,90,63,.1), transparent 47%), #101719;
@@ -257,6 +274,9 @@ h2 { margin: 0; font: 700 27px/1.25 var(--display); letter-spacing: -.035em; }
   .lifecycle { grid-template-columns: repeat(2, 1fr); }
   .lifecycle-step:nth-child(2)::after { display: none; }
   .mitre-concepts, .exercise-grid { grid-template-columns: 1fr 1fr; }
+  .mitre-howto { grid-template-columns: 1fr; gap: 12px; }
+  .mitre-matrix-heading { align-items: flex-start; flex-direction: column; }
+  .mitre-matrix-frame { height: 620px; }
   .exercise-heading { align-items: start; flex-direction: column; gap: 9px; }
   .mitre-example-heading { align-items: flex-start; flex-direction: column; gap: 9px; }
   .exercise-scenario, .exercise-prompt { min-height: 0; }
@@ -282,6 +302,7 @@ h2 { margin: 0; font: 700 27px/1.25 var(--display); letter-spacing: -.035em; }
   .lifecycle-step { min-height: auto; }
   .lifecycle-step::after { display: none !important; }
   .mitre-concepts, .exercise-grid { grid-template-columns: 1fr; }
+  .mitre-matrix-frame { height: 520px; }
   .mitre-example { padding: 16px; }
   .attack-list { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
