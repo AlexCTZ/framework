@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive, beginner-friendly guide to cyberattacks and practical defenses.">
+  <title>Cybersecurity Field Guide</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Cybersecurity Field Guide home">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>FIELDGUIDE<span class="brand-dot">.</span></span>
+    </a>
+    <div class="topbar-note"><span class="status-dot" aria-hidden="true"></span> DEFENSIVE LEARNING PATH</div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">CYBERSECURITY, MADE CLEAR</p>
+        <h1 id="page-title">Understand the attack.<br><span>Strengthen the defense.</span></h1>
+        <p class="hero-description">A visual introduction to common cyberattacks: what they are, how to recognize warning signs, and how to reduce risk.</p>
+        <a class="primary-link" href="#attack-library">Explore attack types <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-visual" aria-label="An abstract shield illustration">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="shield"><span aria-hidden="true">✓</span></div>
+        <span class="visual-tag tag-top">THREAT AWARENESS</span>
+        <span class="visual-tag tag-bottom">DEFENSE IN DEPTH</span>
+        <span class="spark spark-one"></span><span class="spark spark-two"></span>
+      </div>
+    </section>
+
+    <section class="section lifecycle-section" aria-labelledby="lifecycle-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE BIG PICTURE</p>
+          <h2 id="lifecycle-title">A simplified attack lifecycle</h2>
+        </div>
+        <p class="section-intro">Real incidents vary. This model helps organize thinking—not predict every attack.</p>
+      </div>
+      <ol class="lifecycle" aria-label="Simplified cyberattack lifecycle with defensive opportunities">
+        <li class="lifecycle-step">
+          <span class="step-number">01</span><span class="step-icon" aria-hidden="true">⌕</span>
+          <h3>Opportunity</h3><p>A weakness or exposed resource exists.</p>
+          <span class="defense-label">DEFENSE</span><p class="defense-copy">Patch systems; reduce exposure.</p>
+        </li>
+        <li class="lifecycle-step">
+          <span class="step-number">02</span><span class="step-icon" aria-hidden="true">✉</span>
+          <h3>Initial access</h3><p>A person or system is targeted.</p>
+          <span class="defense-label">DEFENSE</span><p class="defense-copy">Train people; use MFA.</p>
+        </li>
+        <li class="lifecycle-step">
+          <span class="step-number">03</span><span class="step-icon" aria-hidden="true">⌁</span>
+          <h3>Impact attempt</h3><p>An attacker tries to misuse access.</p>
+          <span class="defense-label">DEFENSE</span><p class="defense-copy">Limit permissions; monitor activity.</p>
+        </li>
+        <li class="lifecycle-step">
+          <span class="step-number">04</span><span class="step-icon" aria-hidden="true">◉</span>
+          <h3>Detection &amp; recovery</h3><p>Respond, restore, and learn.</p>
+          <span class="defense-label">DEFENSE</span><p class="defense-copy">Keep backups; practice response.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section library-section" id="attack-library" aria-labelledby="library-title">
+      <div class="section-heading library-heading">
+        <div>
+          <p class="eyebrow">LEARN THE PATTERNS</p>
+          <h2 id="library-title">Explore common attack types</h2>
+        </div>
+        <label class="search-box">
+          <span class="sr-only">Search attack types</span>
+          <span aria-hidden="true">⌕</span>
+          <input id="search" type="search" placeholder="Search topics..." autocomplete="off">
+        </label>
+      </div>
+      <div class="topic-tabs" role="group" aria-label="Filter attack types">
+        <button class="topic-tab is-active" type="button" data-filter="all" aria-pressed="true">All topics <span>05</span></button>
+        <button class="topic-tab" type="button" data-filter="people" aria-pressed="false">People <span>01</span></button>
+        <button class="topic-tab" type="button" data-filter="accounts" aria-pressed="false">Accounts <span>01</span></button>
+        <button class="topic-tab" type="button" data-filter="systems" aria-pressed="false">Systems <span>02</span></button>
+        <button class="topic-tab" type="button" data-filter="networks" aria-pressed="false">Networks <span>01</span></button>
+      </div>
+
+      <div class="learning-layout">
+        <div class="attack-list" id="attack-list" aria-label="Attack types"></div>
+        <article class="detail-panel" id="attack-detail" aria-live="polite" aria-labelledby="detail-title"></article>
+      </div>
+      <p class="no-results" id="no-results" hidden>No topics match your search. Try another word or choose a different filter.</p>
+      <p class="safety-note"><span aria-hidden="true">ⓘ</span> This guide is for awareness and protection. It does not provide instructions for attacking systems.</p>
+    </section>
+
+    <section class="section action-section" aria-labelledby="action-title">
+      <div class="action-icon" aria-hidden="true">✦</div>
+      <div>
+        <p class="eyebrow">A GOOD PLACE TO START</p>
+        <h2 id="action-title">Small habits make a real difference.</h2>
+        <p>Use unique passwords, turn on multi-factor authentication, install updates, and report suspicious activity quickly.</p>
+      </div>
+      <a href="#main" class="back-top">Back to top <span aria-hidden="true">↑</span></a>
+    </section>
+  </main>
+
+  <footer class="footer"><span>CYBERSECURITY FIELD GUIDE</span><span>Learn safely. Defend thoughtfully.</span></footer>
+</body>
+</html>
