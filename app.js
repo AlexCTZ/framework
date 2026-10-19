@@ -69,6 +69,65 @@ const tabs = [...document.querySelectorAll(".topic-tab")];
 let activeFilter = "all";
 let selectedId = attacks[0].id;
 
+const quizQuestions = [
+  {
+    prompt: "An unexpected email asks you to confirm your password immediately. What should you do?",
+    choices: [
+      "Reply with your password",
+      "Use a trusted channel to check whether the request is real",
+      "Forward it to everyone"
+    ],
+    answerIndex: 1,
+    explanation: "Verify unusual requests through a contact method you already trust."
+  },
+  {
+    prompt: "Why should you use a unique password for each account?",
+    choices: [
+      "One exposed password is less likely to unlock your other accounts",
+      "Unique passwords are always easier to remember",
+      "It means multi-factor authentication is unnecessary"
+    ],
+    answerIndex: 0,
+    explanation: "Unique passwords reduce the risk of attackers reusing exposed credentials."
+  },
+  {
+    prompt: "What is a cryptographic hash useful for?",
+    choices: [
+      "Recovering the original file contents",
+      "Checking whether file contents have changed",
+      "Encrypting a file so nobody can read it"
+    ],
+    answerIndex: 1,
+    explanation: "Hashes can be compared to detect changes; they are not encryption."
+  },
+  {
+    prompt: "A log shows one failed sign-in. What is a sensible first step?",
+    choices: [
+      "Assume the system is compromised",
+      "Check surrounding events and whether the activity is unusual",
+      "Delete the logs"
+    ],
+    answerIndex: 1,
+    explanation: "Context helps distinguish routine mistakes from a pattern that needs attention."
+  }
+];
+
+const quizProgress = document.querySelector("#quiz-progress");
+const quizContent = document.querySelector("#quiz-content");
+const quizQuestion = document.querySelector("#quiz-question");
+const quizOptions = document.querySelector("#quiz-options");
+const quizFeedback = document.querySelector("#quiz-feedback");
+const quizSubmit = document.querySelector("#quiz-submit");
+const quizNext = document.querySelector("#quiz-next");
+const quizResult = document.querySelector("#quiz-result");
+const quizResultTitle = document.querySelector("#quiz-result-title");
+const quizResultCopy = document.querySelector("#quiz-result-copy");
+const quizRestart = document.querySelector("#quiz-restart");
+let currentQuestion = 0;
+let selectedAnswer = null;
+let quizScore = 0;
+let questionAnswered = false;
+
 function renderDetail(attack) {
   detail.innerHTML = `
     <div class="detail-topline">
@@ -123,6 +182,84 @@ function renderList() {
   detail.hidden = visible.length === 0;
 }
 
+function renderQuizQuestion() {
+  const question = quizQuestions[currentQuestion];
+  selectedAnswer = null;
+  questionAnswered = false;
+  quizProgress.textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+  quizQuestion.textContent = question.prompt;
+  quizOptions.innerHTML = question.choices.map((choice, index) => `
+    <button class="quiz-option" type="button" data-index="${index}" aria-pressed="false">
+      <span class="quiz-option-marker" aria-hidden="true">${String.fromCharCode(65 + index)}</span>
+      <span>${choice}</span>
+    </button>`).join("");
+  quizOptions.querySelectorAll(".quiz-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (questionAnswered) return;
+      selectedAnswer = Number(button.dataset.index);
+      quizOptions.querySelectorAll(".quiz-option").forEach((option) => {
+        const selected = option === button;
+        option.classList.toggle("is-selected", selected);
+        option.setAttribute("aria-pressed", String(selected));
+      });
+      quizSubmit.disabled = false;
+    });
+  });
+  quizFeedback.textContent = "";
+  quizSubmit.hidden = false;
+  quizSubmit.disabled = true;
+  quizNext.hidden = true;
+  quizNext.textContent = currentQuestion === quizQuestions.length - 1 ? "See your score" : "Next question →";
+}
+
+function showQuizResult() {
+  quizProgress.textContent = "QUIZ COMPLETE";
+  quizContent.hidden = true;
+  quizResult.hidden = false;
+  quizResultTitle.textContent = `You scored ${quizScore} out of ${quizQuestions.length}`;
+  quizResultCopy.textContent = quizScore === quizQuestions.length
+    ? "Excellent work. Keep applying these habits in your day-to-day security decisions."
+    : "Review the explanations and keep practicing these safer security habits.";
+}
+
+quizSubmit.addEventListener("click", () => {
+  if (selectedAnswer === null || questionAnswered) return;
+  const question = quizQuestions[currentQuestion];
+  const correct = selectedAnswer === question.answerIndex;
+  questionAnswered = true;
+  if (correct) quizScore += 1;
+  quizOptions.querySelectorAll(".quiz-option").forEach((button) => {
+    const index = Number(button.dataset.index);
+    button.disabled = true;
+    if (index === question.answerIndex) button.classList.add("is-correct");
+    else if (index === selectedAnswer) button.classList.add("is-incorrect");
+  });
+  quizFeedback.textContent = `${correct ? "Correct!" : "Not quite."} ${question.explanation}`;
+  quizSubmit.hidden = true;
+  quizNext.hidden = false;
+  quizNext.focus();
+});
+
+quizNext.addEventListener("click", () => {
+  currentQuestion += 1;
+  if (currentQuestion === quizQuestions.length) {
+    showQuizResult();
+    quizRestart.focus();
+    return;
+  }
+  renderQuizQuestion();
+  quizQuestion.focus();
+});
+
+quizRestart.addEventListener("click", () => {
+  currentQuestion = 0;
+  quizScore = 0;
+  quizResult.hidden = true;
+  quizContent.hidden = false;
+  renderQuizQuestion();
+  quizQuestion.focus();
+});
+
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     activeFilter = tab.dataset.filter;
@@ -138,3 +275,4 @@ tabs.forEach((tab) => {
 search.addEventListener("input", renderList);
 renderList();
 renderDetail(attacks[0]);
+renderQuizQuestion();
