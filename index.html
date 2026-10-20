@@ -68,6 +68,100 @@
       </ol>
     </section>
 
+    <section class="section mitre-section" id="mitre-attack" aria-labelledby="mitre-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">A SHARED LANGUAGE FOR DEFENDERS</p>
+          <h2 id="mitre-title">Understanding MITRE ATT&amp;CK</h2>
+        </div>
+        <p class="section-intro">A public knowledge base for describing adversary behavior, built from real-world observations.</p>
+      </div>
+      <p class="mitre-intro">MITRE ATT&amp;CK (Adversarial Tactics, Techniques, and Common Knowledge) helps security teams describe what an adversary may be trying to achieve and the behaviors they may use. Teams use it to organize threat intelligence, review detection coverage, and communicate consistently. It is a reference for analysis—not a step-by-step attack guide.</p>
+
+      <div class="mitre-concepts" aria-label="ATT&CK terminology">
+        <article class="mitre-concept">
+          <span class="step-number">WHY</span>
+          <h3>Tactic</h3>
+          <p>The adversary's goal at a point in time, such as gaining initial access or affecting availability.</p>
+        </article>
+        <article class="mitre-concept">
+          <span class="step-number">HOW</span>
+          <h3>Technique</h3>
+          <p>A category of behavior used to pursue a goal. A sub-technique describes a more specific variation.</p>
+        </article>
+        <article class="mitre-concept">
+          <span class="step-number">OBSERVED EXAMPLE</span>
+          <h3>Procedure</h3>
+          <p>A particular observed use of a technique. Procedures vary; a technique label alone does not identify who acted.</p>
+        </article>
+      </div>
+
+      <div class="mitre-howto">
+        <div>
+          <p class="eyebrow">HOW TO USE THE MATRIX</p>
+          <h3>Go from an observation to a defensive action</h3>
+        </div>
+        <ol class="mitre-howto-steps">
+          <li><strong>Choose the right matrix.</strong> Start with Enterprise for common organization IT; Mobile and ICS cover different environments.</li>
+          <li><strong>Start with evidence.</strong> Describe what was actually observed in logs, alerts, or a validated incident report.</li>
+          <li><strong>Browse by goal, then behavior.</strong> Tactic columns group adversary objectives. Open a technique or sub-technique to compare its description and examples with your evidence.</li>
+          <li><strong>Use the mapping to improve defense.</strong> Review the detection and mitigation guidance, identify coverage gaps, and record uncertainty. A match is a hypothesis to investigate—not proof of intent or attribution.</li>
+        </ol>
+      </div>
+
+      <div class="mitre-matrix">
+        <div class="mitre-matrix-heading">
+          <div>
+            <p class="eyebrow">OFFICIAL INTERACTIVE REFERENCE</p>
+            <h3>MITRE ATT&amp;CK Enterprise Matrix</h3>
+          </div>
+          <a class="matrix-open-link" href="https://attack.mitre.org/matrices/enterprise/" target="_blank" rel="noopener noreferrer">Open matrix in a new tab <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="mitre-matrix-note">This live matrix is hosted by MITRE and needs an internet connection. If it does not load here, use the link above. The embedded reference does not send answers from this page.</p>
+        <iframe
+          class="mitre-matrix-frame"
+          src="https://attack.mitre.org/matrices/enterprise/"
+          title="Official MITRE ATT&CK Enterprise Matrix"
+          loading="lazy"
+          referrerpolicy="no-referrer"></iframe>
+      </div>
+
+      <div class="mitre-example">
+        <div class="mitre-example-heading">
+          <div>
+            <p class="eyebrow">FICTIONAL DEFENSIVE WALKTHROUGH</p>
+            <h3>From observations to useful questions</h3>
+          </div>
+          <span class="risk-label">NOT A CONFIRMED ATTACK SEQUENCE</span>
+        </div>
+        <ol class="mitre-observations">
+          <li>
+            <span class="observation-number">01</span>
+            <div><h4>An employee reports an unexpected email attachment.</h4><p>Possible mapping: <a href="https://attack.mitre.org/techniques/T1566/001/" target="_blank" rel="noopener noreferrer">T1566.001 — Spearphishing Attachment</a>, under Initial Access. Verify what was delivered and what the telemetry actually shows.</p></div>
+          </li>
+          <li>
+            <span class="observation-number">02</span>
+            <div><h4>A successful sign-in is reported as unfamiliar by the account owner.</h4><p>Possible mapping: <a href="https://attack.mitre.org/techniques/T1078/" target="_blank" rel="noopener noreferrer">T1078 — Valid Accounts</a>. Compare identity-provider logs, device context, and the user's confirmation.</p></div>
+          </li>
+          <li>
+            <span class="observation-number">03</span>
+            <div><h4>Several managed devices report files becoming unavailable.</h4><p>Possible mapping: <a href="https://attack.mitre.org/techniques/T1486/" target="_blank" rel="noopener noreferrer">T1486 — Data Encrypted for Impact</a>. Follow the organization's incident process, preserve evidence, and coordinate safe recovery.</p></div>
+          </li>
+        </ol>
+        <p class="mitre-caveat">These are candidate labels for separate observations, not proof that the events are connected or that a specific group is responsible. ATT&amp;CK is not a linear timeline, and a mapping should be supported by evidence.</p>
+      </div>
+
+      <div class="exercise-heading">
+        <div>
+          <p class="eyebrow">PRACTICE THE ANALYST'S ROLE</p>
+          <h3>Three quick exercises</h3>
+        </div>
+        <p class="section-intro">Choose the best interpretation for each clue. The goal is careful defensive analysis—not attribution.</p>
+      </div>
+      <div class="exercise-grid" id="mitre-exercises"></div>
+      <p class="mitre-source">Explore the <a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">official MITRE ATT&amp;CK knowledge base</a> and its <a href="https://attack.mitre.org/matrices/enterprise/" target="_blank" rel="noopener noreferrer">Enterprise matrix</a>. ATT&amp;CK also has Mobile and ICS matrices; entries and mappings can change as the knowledge base is updated.</p>
+    </section>
+
     <section class="section library-section" id="attack-library" aria-labelledby="library-title">
       <div class="section-heading library-heading">
         <div>

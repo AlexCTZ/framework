@@ -112,6 +112,48 @@ const quizQuestions = [
   }
 ];
 
+const mitreExercises = [
+  {
+    scenario: "A user reports an unexpected attachment. There is not yet evidence it was malicious or opened.",
+    prompt: "What is the most careful way to record this?",
+    choices: [
+      "Confirm T1566.001 and declare an intrusion",
+      "Record possible T1566.001 only if evidence supports it; investigate the message and endpoint",
+      "Attribute it to a known threat group from the email alone"
+    ],
+    answerIndex: 1,
+    explanation: "T1566.001 is a candidate when evidence supports spearphishing with an attachment. A report alone does not prove the attachment was malicious, executed, or part of an intrusion.",
+    url: "https://attack.mitre.org/techniques/T1566/001/",
+    linkText: "Review T1566.001"
+  },
+  {
+    scenario: "An account owner denies a successful sign-in from a device they do not recognize.",
+    prompt: "Which technique is the closest candidate mapping?",
+    choices: [
+      "T1078 — Valid Accounts",
+      "T1486 — Data Encrypted for Impact",
+      "T1566.001 — Spearphishing Attachment"
+    ],
+    answerIndex: 0,
+    explanation: "T1078 covers adversary use of valid accounts. Check identity-provider and device context, and treat the mapping as a hypothesis until the event is investigated.",
+    url: "https://attack.mitre.org/techniques/T1078/",
+    linkText: "Review T1078"
+  },
+  {
+    scenario: "A response team confirms that files on several managed devices became encrypted and unavailable.",
+    prompt: "What is the best ATT&CK-informed next step?",
+    choices: [
+      "Use T1486 as a candidate impact mapping, preserve evidence, and follow the incident response plan",
+      "Treat T1486 as proof of a specific threat actor",
+      "Assume the same events always happen in this order"
+    ],
+    answerIndex: 0,
+    explanation: "T1486 describes Data Encrypted for Impact. A technique helps describe observed behavior; it does not identify an actor or prove a universal sequence. Coordinate containment and recovery through the organization's response plan.",
+    url: "https://attack.mitre.org/techniques/T1486/",
+    linkText: "Review T1486"
+  }
+];
+
 const quizProgress = document.querySelector("#quiz-progress");
 const quizContent = document.querySelector("#quiz-content");
 const quizQuestion = document.querySelector("#quiz-question");
@@ -123,10 +165,66 @@ const quizResult = document.querySelector("#quiz-result");
 const quizResultTitle = document.querySelector("#quiz-result-title");
 const quizResultCopy = document.querySelector("#quiz-result-copy");
 const quizRestart = document.querySelector("#quiz-restart");
+const exerciseContainer = document.querySelector("#mitre-exercises");
 let currentQuestion = 0;
 let selectedAnswer = null;
 let quizScore = 0;
 let questionAnswered = false;
+
+function renderMitreExercises() {
+  exerciseContainer.innerHTML = mitreExercises.map((exercise, exerciseIndex) => `
+    <article class="exercise-card" data-exercise="${exerciseIndex}">
+      <p class="exercise-number">EXERCISE 0${exerciseIndex + 1}</p>
+      <p class="exercise-scenario">${exercise.scenario}</p>
+      <h4 class="exercise-prompt" id="exercise-prompt-${exerciseIndex}">${exercise.prompt}</h4>
+      <div class="quiz-options exercise-options" role="group" aria-labelledby="exercise-prompt-${exerciseIndex}">
+        ${exercise.choices.map((choice, choiceIndex) => `
+          <button class="quiz-option exercise-option" type="button" data-choice="${choiceIndex}" aria-pressed="false">
+            <span class="quiz-option-marker" aria-hidden="true">${String.fromCharCode(65 + choiceIndex)}</span>
+            <span>${choice}</span>
+          </button>`).join("")}
+      </div>
+      <p class="exercise-feedback" aria-live="polite" hidden></p>
+      <a class="exercise-reference" href="${exercise.url}" target="_blank" rel="noopener noreferrer" hidden>${exercise.linkText} <span aria-hidden="true">↗</span></a>
+      <div class="exercise-actions"><button class="quiz-button exercise-check" type="button" disabled>Check answer</button></div>
+    </article>`).join("");
+
+  exerciseContainer.querySelectorAll(".exercise-card").forEach((card) => {
+    const exercise = mitreExercises[Number(card.dataset.exercise)];
+    const options = [...card.querySelectorAll(".exercise-option")];
+    const checkButton = card.querySelector(".exercise-check");
+    let selectedChoice = null;
+
+    options.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (card.dataset.answered === "true") return;
+        selectedChoice = Number(button.dataset.choice);
+        options.forEach((option) => {
+          const selected = option === button;
+          option.classList.toggle("is-selected", selected);
+          option.setAttribute("aria-pressed", String(selected));
+        });
+        checkButton.disabled = false;
+      });
+    });
+
+    checkButton.addEventListener("click", () => {
+      if (selectedChoice === null || card.dataset.answered === "true") return;
+      card.dataset.answered = "true";
+      options.forEach((option) => {
+        const choiceIndex = Number(option.dataset.choice);
+        option.disabled = true;
+        if (choiceIndex === exercise.answerIndex) option.classList.add("is-correct");
+        else if (choiceIndex === selectedChoice) option.classList.add("is-incorrect");
+      });
+      const feedback = card.querySelector(".exercise-feedback");
+      feedback.textContent = `${selectedChoice === exercise.answerIndex ? "Correct!" : "Review this one."} ${exercise.explanation}`;
+      feedback.hidden = false;
+      card.querySelector(".exercise-reference").hidden = false;
+      checkButton.hidden = true;
+    });
+  });
+}
 
 function renderDetail(attack) {
   detail.innerHTML = `
@@ -276,3 +374,4 @@ search.addEventListener("input", renderList);
 renderList();
 renderDetail(attacks[0]);
 renderQuizQuestion();
+renderMitreExercises();
